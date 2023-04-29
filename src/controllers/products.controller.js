@@ -1,9 +1,7 @@
 const { Products } = require('../models/products.model');
-const { v4: uuidv4 } = require("uuid"); /* unique id generator */
 
 exports.getAllProducts = async (_, res, next) => {
     try {
-        console.log("Product -> getAllProducts");
         const products = await Products.find();
         res.status(200).json(products);
     } catch (error) {
@@ -14,9 +12,19 @@ exports.getAllProducts = async (_, res, next) => {
 exports.getProductById = async (req, res, next) => {
     const { id } = req.params;
     try {
-        console.log("Product -> getProductById");
-        const products = await Products.find({ _id:id });
-        res.status(200).json(products);
+        const products = await Products.find({ _id: id });
+        if (products.length == 0) {
+            res.status(404).json({
+                status: 404,
+                message: "product not found",
+            })
+        } else {
+            res.status(200).json({
+                status: 200,
+                message: "product found",
+                product: products
+            });
+        }
     } catch (error) {
         next(error);
     }
@@ -26,9 +34,12 @@ exports.addNewProduct = async (req, res, next) => {
     const product = req.body;
 
     try {
-        console.log("Product -> AddNewProduct");
         const resp = await Products.create(product);
-        res.status(200).json(resp);
+        res.status(200).json({
+            status: 200,
+            message: "product was created",
+            product: resp
+        });
     } catch (error) {
         next(error);
     }
@@ -38,9 +49,20 @@ exports.updateProduct = async (req, res, next) => {
     const { id } = req.params;
     const updateProduct = req.body;
     try {
-        console.log("Product -> updateProduct");
         const product = await Products.findOneAndUpdate({ _id: id }, { $set: { ...updateProduct } });
-        res.status(200).json(product)
+        if (product == null) {
+            res.status(404).json({
+                status: 404,
+                message: "product not found",
+            })
+        } else {
+            res.status(200).json({
+                status: 200,
+                message: "Product was updated",
+                product: product,
+                update: updateProduct
+            })
+        }
     } catch (error) {
         next(error);
     }
@@ -49,9 +71,19 @@ exports.updateProduct = async (req, res, next) => {
 exports.deleteProduct = async (req, res, next) => {
     const { id } = req.params;
     try {
-        console.log("Product -> deleteProduct");
         const product = await Products.findOneAndDelete({ _id: id });
-        res.status(200).json(product)
+        if (product == null) {
+            res.status(404).json({
+                status: 404,
+                message: "product not found",
+            })
+        } else {
+            res.status(200).json({
+                status: 200,
+                message: "product was deleted",
+                product: product
+            })
+        }
     } catch (error) {
         next(error);
     }

@@ -5,7 +5,7 @@ const { mongoose } = require("mongoose");
 
 const express = require("express");
 
-const { errors, errorHandler } = require("./middlewares/error.handler");
+const { errors, errorHandler, errorPath } = require("./middlewares/error.handler");
 
 const PORT = process.env.PORT;
 
@@ -16,6 +16,7 @@ app.use(express.json());
 app.use("/", require("./routes/products.route"));
 app.use(errors);
 app.use(errorHandler);
+app.use(errorPath);
 
 
 const start = async () => {
