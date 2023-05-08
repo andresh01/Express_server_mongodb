@@ -2,10 +2,11 @@
 //mongodb
 require("dotenv").config();
 const { mongoose } = require("mongoose");
-
+const sequelize = require('./utils/postgresql')
 const express = require("express");
 
 const { errors, errorHandler, errorPath } = require("./middlewares/error.handler");
+
 
 const PORT = process.env.PORT;
 
@@ -14,6 +15,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/", require("./routes/products.route"));
+app.use("/",require("./routes/users.routes"));
 app.use(errors);
 app.use(errorHandler);
 app.use(errorPath);
@@ -24,9 +26,19 @@ const start = async () => {
     await mongoose.connect(process.env.MONGODB_CONNECTION, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-    })
+    });
+
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+      } catch (error) {
+        console.error('Unable to connect to the database:', error);
+      }
+      
+    await sequelize.sync();
+
     app.listen(PORT, () => {
-        console.clear();
+        //console.clear();
         console.log(`SERVER LISTENING ON PORT ${PORT}`)
     });
    } catch (error) {

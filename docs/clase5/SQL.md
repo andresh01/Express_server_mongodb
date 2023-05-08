@@ -117,3 +117,137 @@ There are no results to be displayed.
 
 
 [View on DB Fiddle](https://www.db-fiddle.com/)
+
+
+**Schema (PostgreSQL v9.4)**
+
+    CREATE TABLE products (
+        id INT PRIMARY KEY,
+        name VARCHAR(50),
+        price DECIMAL(10, 2),
+        description TEXT,
+        category VARCHAR(50)
+    );
+    
+    -- Insert sample data into the 'products' table
+    INSERT INTO products (id, name, price, description, category)
+    VALUES
+        (1, 'iPhone X', 999.99, 'Apple iPhone X with 64GB storage', 'Electronics'),
+        (2, 'Samsung Galaxy S20', 799.99, 'Samsung Galaxy S20 with 128GB storage', 'Electronics'),
+        (3, 'Sony PlayStation 5', 499.99, 'Sony PlayStation 5 gaming console', 'Gaming'),
+        (4, 'Sike Air Max', 129.99, 'Nike Air Max running shoes', 'Sports'),
+        (5, 'Dell XPS 13', 1299.99, 'Dell XPS 13 laptop with Intel Core i7 processor', 'Electronics');
+    
+
+---
+
+**Query #1**
+
+    SELECT * FROM products 
+    ORDER BY price ASC;
+
+| id  | name               | price   | description                                     | category    |
+| --- | ------------------ | ------- | ----------------------------------------------- | ----------- |
+| 4   | Sike Air Max       | 129.99  | Nike Air Max running shoes                      | Sports      |
+| 3   | Sony PlayStation 5 | 499.99  | Sony PlayStation 5 gaming console               | Gaming      |
+| 2   | Samsung Galaxy S20 | 799.99  | Samsung Galaxy S20 with 128GB storage           | Electronics |
+| 1   | iPhone X           | 999.99  | Apple iPhone X with 64GB storage                | Electronics |
+| 5   | Dell XPS 13        | 1299.99 | Dell XPS 13 laptop with Intel Core i7 processor | Electronics |
+
+---
+**Query #2**
+
+    SELECT * FROM products 
+    ORDER BY price,id ASC;
+
+| id  | name               | price   | description                                     | category    |
+| --- | ------------------ | ------- | ----------------------------------------------- | ----------- |
+| 4   | Sike Air Max       | 129.99  | Nike Air Max running shoes                      | Sports      |
+| 3   | Sony PlayStation 5 | 499.99  | Sony PlayStation 5 gaming console               | Gaming      |
+| 2   | Samsung Galaxy S20 | 799.99  | Samsung Galaxy S20 with 128GB storage           | Electronics |
+| 1   | iPhone X           | 999.99  | Apple iPhone X with 64GB storage                | Electronics |
+| 5   | Dell XPS 13        | 1299.99 | Dell XPS 13 laptop with Intel Core i7 processor | Electronics |
+
+---
+**Query #3**
+
+    SELECT * FROM products 
+    ORDER BY id,price ASC;
+
+| id  | name               | price   | description                                     | category    |
+| --- | ------------------ | ------- | ----------------------------------------------- | ----------- |
+| 1   | iPhone X           | 999.99  | Apple iPhone X with 64GB storage                | Electronics |
+| 2   | Samsung Galaxy S20 | 799.99  | Samsung Galaxy S20 with 128GB storage           | Electronics |
+| 3   | Sony PlayStation 5 | 499.99  | Sony PlayStation 5 gaming console               | Gaming      |
+| 4   | Sike Air Max       | 129.99  | Nike Air Max running shoes                      | Sports      |
+| 5   | Dell XPS 13        | 1299.99 | Dell XPS 13 laptop with Intel Core i7 processor | Electronics |
+
+---
+**Query #4**
+
+    SELECT * FROM products 
+    ORDER BY price,name ASC;
+
+| id  | name               | price   | description                                     | category    |
+| --- | ------------------ | ------- | ----------------------------------------------- | ----------- |
+| 4   | Sike Air Max       | 129.99  | Nike Air Max running shoes                      | Sports      |
+| 3   | Sony PlayStation 5 | 499.99  | Sony PlayStation 5 gaming console               | Gaming      |
+| 2   | Samsung Galaxy S20 | 799.99  | Samsung Galaxy S20 with 128GB storage           | Electronics |
+| 1   | iPhone X           | 999.99  | Apple iPhone X with 64GB storage                | Electronics |
+| 5   | Dell XPS 13        | 1299.99 | Dell XPS 13 laptop with Intel Core i7 processor | Electronics |
+
+---
+**Query #5**
+
+    SELECT * FROM products 
+    LIMIT 2;
+
+| id  | name               | price  | description                           | category    |
+| --- | ------------------ | ------ | ------------------------------------- | ----------- |
+| 1   | iPhone X           | 999.99 | Apple iPhone X with 64GB storage      | Electronics |
+| 2   | Samsung Galaxy S20 | 799.99 | Samsung Galaxy S20 with 128GB storage | Electronics |
+
+---
+**Query #6**
+
+    SELECT * FROM products 
+    	WHERE price > 0
+    	ORDER BY price ASC
+        OFFSET 2
+    	LIMIT 2;
+
+| id  | name               | price  | description                           | category    |
+| --- | ------------------ | ------ | ------------------------------------- | ----------- |
+| 2   | Samsung Galaxy S20 | 799.99 | Samsung Galaxy S20 with 128GB storage | Electronics |
+| 1   | iPhone X           | 999.99 | Apple iPhone X with 64GB storage      | Electronics |
+
+---
+**Query #7**
+
+    SELECT * FROM products 
+    	WHERE price > 0
+    	ORDER BY price DESC
+        OFFSET 2
+    	LIMIT 2;
+
+| id  | name               | price  | description                           | category    |
+| --- | ------------------ | ------ | ------------------------------------- | ----------- |
+| 2   | Samsung Galaxy S20 | 799.99 | Samsung Galaxy S20 with 128GB storage | Electronics |
+| 3   | Sony PlayStation 5 | 499.99 | Sony PlayStation 5 gaming console     | Gaming      |
+
+---
+**Query #8**
+
+    SELECT * FROM products 
+    	WHERE price > 0 AND name LIKE 'S%'
+    	ORDER BY price DESC
+    	LIMIT 2;
+
+| id  | name               | price  | description                           | category    |
+| --- | ------------------ | ------ | ------------------------------------- | ----------- |
+| 2   | Samsung Galaxy S20 | 799.99 | Samsung Galaxy S20 with 128GB storage | Electronics |
+| 3   | Sony PlayStation 5 | 499.99 | Sony PlayStation 5 gaming console     | Gaming      |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/)
