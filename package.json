@@ -2,10 +2,10 @@
   "name": "proyectoservidor",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon src/index.js --watch",
-    "start": "node src/index.js"
+    "dev": "nodemon src/server.js --watch",
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",

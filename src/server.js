@@ -14,8 +14,8 @@ const app = express();
 
 
 app.use(express.json());
-app.use("/", require("./routes/products.route"));
-app.use("/",require("./routes/users.routes"));
+app.use("/", require("./routes/product.route"));
+app.use("/", require("./routes/user.route"));
 app.use(errors);
 app.use(errorHandler);
 app.use(errorPath);

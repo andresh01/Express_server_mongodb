@@ -1,2 +1,2 @@
-module.exports = require('./products.controller');
-module.exports = require('./users.controllers');
+module.exports = require('./product.controller');
+module.exports = require('./user.controller');

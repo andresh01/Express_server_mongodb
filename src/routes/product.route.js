@@ -1,7 +1,7 @@
 const { Router } = require("express");
-const { createProductValidation, updateProductValidation, getProductValidation, deleteProductValidation } = require("../validation/products.validation")
+const { createProductValidation, updateProductValidation, getProductValidation, deleteProductValidation } = require("../validation/product.validation")
 const validatorHandler = require("../middlewares/validator.handler");
-const { getAllProducts, getProductById, addNewProduct, updateProduct, deleteProduct } = require("../controllers/products.controller");
+const { getAllProducts, getProductById, addNewProduct, updateProduct, deleteProduct } = require("../controllers/product.controller");
 
 const routes = new Router();
 
