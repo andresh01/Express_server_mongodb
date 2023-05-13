@@ -1,5 +1,7 @@
 const { Router } = require("express");
+const validatorHandler = require("../middlewares/validator.handler");
 const { createUser, getAllUsers, updateUser, deleteUser } = require('../controllers')
+const { createUserValidation, updateUserValidation, deleteUserValidation } = require('../validation/user.validation')
 
 const route = new Router();
 
@@ -8,9 +10,10 @@ route.get("/health", (_, res) => res.send("check")); //sirve para evaluar el tie
 const BASE = "/api/v1/users";
 
 route.get(BASE, getAllUsers )
-route.post(BASE, createUser) 
-route.patch(BASE, updateUser) 
-route.delete(BASE, deleteUser)
+route.post(BASE, validatorHandler(createUserValidation, 'body'), createUser) 
+route.patch(BASE,validatorHandler(updateUserValidation, 'query'), updateUser) 
+route.delete(BASE, validatorHandler(deleteUserValidation), deleteUser)
+
 
 
 

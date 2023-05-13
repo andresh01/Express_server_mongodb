@@ -6,7 +6,8 @@ const sequelize = require('./utils/postgresql')
 const express = require("express");
 
 const { errors, errorHandler, errorPath } = require("./middlewares/error.handler");
-
+const { User } = require('./routes')
+const { Product } = require('./routes')
 
 const PORT = process.env.PORT;
 
@@ -14,8 +15,8 @@ const app = express();
 
 
 app.use(express.json());
-app.use("/", require("./routes/product.route"));
-app.use("/", require("./routes/user.route"));
+app.use("/", Product);
+app.use("/", User);
 app.use(errors);
 app.use(errorHandler);
 app.use(errorPath);
@@ -35,7 +36,7 @@ const start = async () => {
         console.error('Unable to connect to the database:', error);
       }
       
-    await sequelize.sync();
+    //await sequelize.sync();
 
     app.listen(PORT, () => {
         //console.clear();

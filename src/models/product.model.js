@@ -12,4 +12,4 @@ const ProductSchema = mongoose.Schema({
     { versionKey: false } //no muestra el _v en la base de datos mongoDB
 )
 
-exports.Products = mongoose.model("products", ProductSchema);
+exports.Product = mongoose.model("products", ProductSchema);

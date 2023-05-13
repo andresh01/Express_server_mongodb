@@ -1,9 +1,9 @@
-const { Products } = require('../models/product.model');
+const { Product } = require('../models/product.model');
 
 exports.getAllProducts = async (_, res, next) => {
     try {
-        const products = await Products.find();
-        res.status(200).json(products);
+        const product = await Product.find();
+        res.status(200).json(product);
     } catch (error) {
         next(error);
     }
@@ -12,8 +12,8 @@ exports.getAllProducts = async (_, res, next) => {
 exports.getProductById = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const products = await Products.find({ _id: id });
-        if (products.length == 0) {
+        const product = await Product.find({ _id: id });
+        if (Product.length == 0) {
             res.status(404).json({
                 status: 404,
                 message: "product not found",
@@ -22,7 +22,7 @@ exports.getProductById = async (req, res, next) => {
             res.status(200).json({
                 status: 200,
                 message: "product found",
-                product: products
+                product: product
             });
         }
     } catch (error) {
@@ -34,7 +34,7 @@ exports.addNewProduct = async (req, res, next) => {
     const product = req.body;
 
     try {
-        const resp = await Products.create(product);
+        const resp = await Product.create(product);
         res.status(200).json({
             status: 200,
             message: "product was created",
@@ -49,7 +49,7 @@ exports.updateProduct = async (req, res, next) => {
     const { id } = req.params;
     const updateProduct = req.body;
     try {
-        const product = await Products.findOneAndUpdate({ _id: id }, { $set: { ...updateProduct } });
+        const product = await Product.findOneAndUpdate({ _id: id }, { $set: { ...updateProduct } });
         if (product == null) {
             res.status(404).json({
                 status: 404,
@@ -71,7 +71,7 @@ exports.updateProduct = async (req, res, next) => {
 exports.deleteProduct = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const product = await Products.findOneAndDelete({ _id: id });
+        const product = await Product.findOneAndDelete({ _id: id });
         if (product == null) {
             res.status(404).json({
                 status: 404,
