@@ -20,8 +20,8 @@ const createUserValidation = Joi.object({
     role: role,
 })
 
-const getUser = Joi.object({
-
+const getUserValidation = Joi.object({
+    id : id.required
 })
 
 const updateUserValidation = Joi.object({
@@ -38,5 +38,7 @@ const updateUserValidation = Joi.object({
 const deleteUserValidation = Joi.object({
     id : id.required
 })
+
+
 
 module.exports = { createUserValidation, updateUserValidation, deleteUserValidation }

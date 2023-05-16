@@ -1,7 +1,7 @@
 const User = require('../models/user.model')
 
 exports.getAllUsers = async (req, res, next) => {
-    const { offset, limit, id, name } = req.query;
+    const { offset, limit, id } = req.query;
 
     try {
         if (id) {
@@ -24,13 +24,40 @@ exports.getAllUsers = async (req, res, next) => {
                 limit,
 
             });
-            res.json(users);
+            res.status(200).json({
+                status: 200,
+                message: "Users found",
+                user: users
+            })
         }
     } catch (error) {
         next(error);
         console.error(error.message);
     }
 }
+
+/* exports.getUser = async (req, res, next) => {
+    const { id } = req.query;
+    
+    try {
+        const exist = User.findOne({where: {id: id}});
+        if (exist) {
+            res.status(200).json({
+                status: 200,
+                message: "User found",
+                user: exist
+            })
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: "User not found"
+            })
+        }
+    } catch (error) {
+        console.error(error.message)
+        next(error);
+    }
+} */
 
 exports.createUser = async (req, res, next) => {
     try {
