@@ -5,7 +5,6 @@ const { mongoose } = require("mongoose");
 const sequelize = require('./utils/postgresql')
 const express = require("express");
 
-//const { errors, errorHandler, errorPath } = require("./middlewares/error.handler");
 const { error } = require('./middlewares')
 const { User } = require('./routes')
 const { Product } = require('./routes')
@@ -18,6 +17,7 @@ const app = express();
 app.use(express.json());
 app.use("/", Product);
 app.use("/", User);
+app.use("/", require('./routes/login.route'));
 app.use(error.errors);
 app.use(error.errorHandler);
 app.use(error.errorPath);
